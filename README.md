@@ -1,16 +1,58 @@
-# algas
+# Algas: (Alg)orithms on Canv(as)
 
-A new Flutter project.
+---
 
-## Getting Started
+An open source app for algorithms visualization.
 
-This project is a starting point for a Flutter application.
+## Algorithms
 
-A few resources to get you started if this is your first Flutter project:
+### Sorting
+- [ ] Bubble Sort
+- [ ] Insertion Sort
+- [ ] Selection Sort
+- [ ] Merge Sort
+- [ ] Quick Sort
+- [ ] Heap Sort
+- [ ] Radix Sort
+- [ ] Counting Sort
+- [ ] Bucket Sort
+- ...
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Searching
+- [ ] Linear Search
+- [ ] Binary Search
+- [ ] Jump Search
+- [ ] Interpolation Search
+- [ ] Exponential Search
+- [ ] Fibonacci Search
+- [ ] Ternary Search
+- [ ] Sublist Search (Search a linked list in another list)
+- ...
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Graphs
+- [ ] Depth First Search
+- [ ] Breadth First Search
+- [ ] Dijkstra's
+- [ ] Bellman-Ford
+- [ ] Floyd-Warshall
+- [ ] Kruskal's
+- [ ] Prim's
+- [ ] Topological Sort
+- [ ] Johnson's
+- [ ] A*
+- ...
+
+### Other
+- [ ] Tower of Hanoi
+- [ ] N-Queens Problem
+- [ ] Travelling Salesman Problem
+- [ ] Knapsack Problem
+- [ ] Longest Common Subsequence
+- [ ] Longest Increasing Subsequence
+- [ ] Longest Palindromic Subsequence
+- [ ] Longest Palindromic Substring
+- [ ] Edit Distance
+- [ ] Coin Change Problem
+- [ ] 0-1 Knapsack Problem
+- [x] Subset Sum Problem
+- ...

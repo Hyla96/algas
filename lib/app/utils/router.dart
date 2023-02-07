@@ -15,17 +15,15 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   AppRouter._privateConstructor() {
     _router = GoRouter(
-      routes: routes.keys
+      routes: routes
           .map(
             (e) => GoRoute(
-              path: e,
+              path: e.path,
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: state.pageKey,
-                  child: routes[e]!,
+                  child: e.page!,
                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    // Change the opacity of the screen using a Curve based on the the animation's
-                    // value
                     return FadeTransition(
                       opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                       child: child,
@@ -33,7 +31,6 @@ class AppRouter {
                   },
                 );
               },
-              // builder: (context, state) => routes[e]!,
             ),
           )
           .toList(),
@@ -46,8 +43,28 @@ class AppRouter {
 
   GoRouter get router => _router;
 
-  final routes = <String, Widget>{
-    '/': HomePage(),
-    '/kadane': KadaneAlgorithm(),
-  };
+  final routes = <Route>[
+    const Route(
+      name: 'Home',
+      path: '/',
+      page: HomePage(),
+    ),
+    Route(
+      name: 'Kadane Algorithm',
+      path: '/kadane',
+      page: KadaneAlgorithm(),
+    ),
+  ];
+}
+
+class Route {
+  const Route({
+    required this.name,
+    required this.page,
+    required this.path,
+  });
+
+  final String name;
+  final Widget page;
+  final String path;
 }

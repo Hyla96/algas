@@ -30,11 +30,11 @@ class MyApp extends StatelessWidget {
             SizedBox(
               width: 150,
               child: Column(
-                children: AppRouter.instance.routes.keys
+                children: AppRouter.instance.routes
                     .map(
                       (e) => ListTile(
-                        title: Text(e),
-                        onTap: () => AppRouter.instance.router.go(e),
+                        title: Text(e.name),
+                        onTap: () => AppRouter.instance.router.go(e.path),
                       ),
                     )
                     .toList(),

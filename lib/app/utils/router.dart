@@ -8,25 +8,28 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:algas/app/utils/router.dart';
+import 'package:algas/app/ui/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class AppRouter {
+  AppRouter._privateConstructor();
+  static final AppRouter _instance = AppRouter._privateConstructor();
+  static AppRouter get instance => _instance;
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  final routes = <String, Widget>{
+    '/': HomePage(),
+    '/kadane': KadaneAlgorithm(),
+  };
 
-  final pageController = PageController();
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routerConfig: AppRouter.instance.router,
-    );
-  }
+  GoRouter get router => GoRouter(
+        routes: routes.keys
+            .map(
+              (e) => GoRoute(
+                path: e,
+                builder: (context, state) => routes[e]!,
+              ),
+            )
+            .toList(),
+      );
 }

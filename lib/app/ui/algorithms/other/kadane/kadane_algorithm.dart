@@ -8,7 +8,7 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:algas/app/ui/kadane/kadane_algorithm_vm.dart';
+import 'package:algas/app/ui/algorithms/other/kadane/kadane_algorithm_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 

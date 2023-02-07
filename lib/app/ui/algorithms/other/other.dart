@@ -8,25 +8,6 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:algas/app/utils/router.dart';
-import 'package:flutter/material.dart';
+library other;
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final pageController = PageController();
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routerConfig: AppRouter.instance.router,
-    );
-  }
-}
+export 'kadane/kadane_algorithm.dart';

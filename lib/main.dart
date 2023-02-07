@@ -16,17 +16,41 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final pageController = PageController();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerConfig: AppRouter.instance.router,
+      home: Scaffold(
+        body: Row(
+          children: [
+            SizedBox(
+              width: 150,
+              child: Column(
+                children: AppRouter.instance.routes.keys
+                    .map(
+                      (e) => ListTile(
+                        title: Text(e),
+                        onTap: () => AppRouter.instance.router.go(e),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+            Expanded(
+              child: MaterialApp.router(
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                routerConfig: AppRouter.instance.router,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

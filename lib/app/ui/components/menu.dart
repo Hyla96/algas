@@ -8,42 +8,33 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:algas/app/ui/components/menu.dart';
 import 'package:algas/app/utils/router.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Menu extends StatelessWidget {
+  const Menu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        body: Row(
-          children: [
-            const Menu(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: MaterialApp.router(
-                  debugShowCheckedModeBanner: false,
-                  theme: ThemeData(
-                    primarySwatch: Colors.blue,
-                  ),
-                  routerConfig: AppRouter.instance.router,
-                ),
-              ),
-            ),
-          ],
+    return Container(
+      width: 150,
+      decoration: BoxDecoration(
+        border: Border(
+          right: BorderSide(
+            color: Colors.grey[300]!,
+            width: 1,
+          ),
         ),
+      ),
+      child: Column(
+        children: AppRouter.instance.routes
+            .map(
+              (e) => ListTile(
+                title: Text(e.name),
+                onTap: () => AppRouter.instance.router.go(e.path),
+              ),
+            )
+            .toList(),
       ),
     );
   }

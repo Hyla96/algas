@@ -54,5 +54,5 @@ An open source app for algorithms visualization.
 - [ ] Edit Distance
 - [ ] Coin Change Problem
 - [ ] 0-1 Knapsack Problem
-- [x] Subset Sum Problem
+- [x] Kadane (Maximum Subarray Problem)
 - ...

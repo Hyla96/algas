@@ -22,7 +22,7 @@ class AppRouter {
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: state.pageKey,
-                  child: e.page!,
+                  child: e.page,
                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
                     return FadeTransition(
                       opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),

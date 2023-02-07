@@ -9,6 +9,7 @@
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:algas/app/ui/algorithms/other/kadane/kadane_algorithm_vm.dart';
+import 'package:algas/app/utils/running_status.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -130,9 +131,17 @@ class KadaneAlgorithm extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => vm.start(),
-        child: const Icon(Icons.play_arrow),
+      floatingActionButton: StreamBuilder<RunningStatus>(
+        stream: vm.status.stream,
+        initialData: RunningStatus.stopped,
+        builder: (context, snapshot) {
+          return FloatingActionButton(
+            onPressed: () async => snapshot.data! != RunningStatus.running ? vm.start() : vm.stop(),
+            child: Icon(
+              snapshot.data! != RunningStatus.running ? Icons.play_arrow : Icons.stop,
+            ),
+          );
+        },
       ),
     );
   }

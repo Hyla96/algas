@@ -11,6 +11,7 @@
 import 'dart:math';
 
 import 'package:algas/app/utils/base_vm.dart';
+import 'package:algas/app/utils/running_status.dart';
 import 'package:rxdart/subjects.dart';
 
 /// https://en.wikipedia.org/wiki/Maximum_subarray_problem
@@ -23,11 +24,13 @@ import 'package:rxdart/subjects.dart';
 const defaultDelay = 250;
 
 class KadaneAlgorithmVM extends BaseVM {
-  final startIndex = BehaviorSubject<int>.seeded(-1);
-  final endIndex = BehaviorSubject<int>.seeded(-1);
+  final startIndex = BehaviorSubject<int>.seeded(0);
+  final endIndex = BehaviorSubject<int>.seeded(0);
   final currentIndex = BehaviorSubject<int>.seeded(0);
-  final currentSum = BehaviorSubject<int>();
-  final bestSum = BehaviorSubject<int>();
+  final currentSum = BehaviorSubject<int>.seeded(0);
+  final bestSum = BehaviorSubject<int>.seeded(0);
+
+  final status = BehaviorSubject<RunningStatus>.seeded(RunningStatus.stopped);
 
   final numbers = BehaviorSubject<List<int>>();
 
@@ -38,8 +41,8 @@ class KadaneAlgorithmVM extends BaseVM {
   Duration get _delay => Duration(milliseconds: delay.valueOrNull ?? defaultDelay);
 
   void reset() {
-    startIndex.add(-1);
-    endIndex.add(-1);
+    startIndex.add(0);
+    endIndex.add(0);
     currentIndex.add(0);
     currentSum.add(0);
     bestSum.add(0);
@@ -47,48 +50,52 @@ class KadaneAlgorithmVM extends BaseVM {
   }
 
   Future<void> start() async {
-    reset();
-    final values = List.generate(
-      12,
-      (index) => _rng.nextInt(20) * (_rng.nextBool() ? 1 : -1),
-    );
+    if (status.value == RunningStatus.running) return;
+    if (status.value == RunningStatus.stopped) {
+      reset();
+      final values = List.generate(
+        12,
+        (index) => _rng.nextInt(20) * (_rng.nextBool() ? 1 : -1),
+      );
+      return _start(values);
+    } else {
+      status.add(RunningStatus.running);
+    }
+  }
 
-    return _start(values);
+  void stop() => status.add(RunningStatus.paused);
+
+  Future<void> checkForPause() async {
+    if (status.value == RunningStatus.paused) {
+      await status.skipWhile((element) => element != RunningStatus.running).first;
+    }
   }
 
   Future<void> _start(List<int> n) async {
+    status.add(RunningStatus.running);
     numbers.add(n);
-    await Future.delayed(_delay);
-    var bSum = 0;
-    var bStart = 0;
-    var bEnd = 0;
-    var cSum = 0;
-    var cStart = 0;
-
+    var start = currentIndex.value;
     for (int i = 0; i < n.length; i++) {
       currentIndex.add(i);
-      final x = n[i];
-      if (cSum <= 0) {
-        cSum = x;
-        cStart = i;
-      } else {
-        cSum += x;
-      }
-      currentSum.add(cSum);
       await Future.delayed(_delay);
-
-      if (cSum > bSum) {
-        bSum = cSum;
-        bStart = cStart;
-        bEnd = i;
-        startIndex.add(bStart);
-        endIndex.add(bEnd);
+      await checkForPause();
+      final x = n[i];
+      if (currentSum.value <= 0) {
+        currentSum.add(x);
+        start = i;
+      } else {
+        currentSum.add(currentSum.value + x);
+      }
+      if (currentSum.value >= bestSum.value) {
+        bestSum.add(currentSum.value);
+        startIndex.add(start);
+        endIndex.add(i);
         await Future.delayed(_delay);
-        bestSum.add(bSum);
-        await Future.delayed(_delay);
+        await checkForPause();
       }
     }
 
     currentIndex.add(n.length);
+    status.add(RunningStatus.stopped);
   }
 }

@@ -23,6 +23,10 @@ import 'package:rxdart/subjects.dart';
 ///
 
 class KadaneAlgorithmVM extends BaseVM {
+  KadaneAlgorithmVM() {
+    generate();
+  }
+
   final startIndex = BehaviorSubject<int>.seeded(0);
   final endIndex = BehaviorSubject<int>.seeded(0);
   final currentIndex = BehaviorSubject<int>.seeded(0);
@@ -45,18 +49,24 @@ class KadaneAlgorithmVM extends BaseVM {
     currentIndex.add(0);
     currentSum.add(0);
     bestSum.add(0);
-    numbers.add([]);
+  }
+
+  void generate() {
+    final values = List.generate(
+      12,
+      (index) => _rng.nextInt(20) * (_rng.nextBool() ? 1 : -1),
+    );
+    numbers.add(values);
   }
 
   Future<void> start() async {
     if (status.value == RunningStatus.running) return;
     if (status.value == RunningStatus.stopped) {
-      reset();
-      final values = List.generate(
-        12,
-        (index) => _rng.nextInt(20) * (_rng.nextBool() ? 1 : -1),
-      );
-      return _start(values);
+      if (bestSum.value != 0) {
+        reset();
+        generate();
+      }
+      return _start();
     } else {
       status.add(RunningStatus.running);
     }
@@ -70,15 +80,14 @@ class KadaneAlgorithmVM extends BaseVM {
     }
   }
 
-  Future<void> _start(List<int> n) async {
+  Future<void> _start() async {
     status.add(RunningStatus.running);
-    numbers.add(n);
     var start = currentIndex.value;
-    for (int i = 0; i < n.length; i++) {
+    for (int i = 0; i < numbers.value.length; i++) {
       currentIndex.add(i);
       await Future.delayed(_delay);
       await checkForPause();
-      final x = n[i];
+      final x = numbers.value[i];
       if (currentSum.value <= 0) {
         currentSum.add(x);
         start = i;
@@ -94,7 +103,7 @@ class KadaneAlgorithmVM extends BaseVM {
       }
     }
 
-    currentIndex.add(n.length);
+    currentIndex.add(numbers.value.length);
     status.add(RunningStatus.stopped);
   }
 }

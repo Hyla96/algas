@@ -56,10 +56,8 @@ class KadaneAlgorithm extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      numbersSnapshot.hasData ? numbersSnapshot.data.toString() : 'Start a new play',
-                    ),
                     if (numbersSnapshot.hasData)
                       StreamBuilder<List<int>>(
                         stream: Rx.combineLatest3(
@@ -114,6 +112,9 @@ class KadaneAlgorithm extends StatelessWidget {
                           );
                         },
                       ),
+                    SizedBox(
+                      height: 24,
+                    ),
                     StreamBuilder<int>(
                       stream: vm.bestSum.stream,
                       builder: (context, snapshot) {
@@ -122,6 +123,9 @@ class KadaneAlgorithm extends StatelessWidget {
                         }
                         return Text(
                           'Best sum: ${snapshot.data}',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         );
                       },
                     ),

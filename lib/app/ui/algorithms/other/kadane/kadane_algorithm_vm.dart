@@ -11,6 +11,7 @@
 import 'dart:math';
 
 import 'package:algas/app/utils/base_vm.dart';
+import 'package:algas/app/utils/constants.dart';
 import 'package:algas/app/utils/running_status.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -20,8 +21,6 @@ import 'package:rxdart/subjects.dart';
 ///
 /// The runtime complexity of Kadane's algorithm is O(n).
 ///
-
-const defaultDelay = 250;
 
 class KadaneAlgorithmVM extends BaseVM {
   final startIndex = BehaviorSubject<int>.seeded(0);

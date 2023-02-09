@@ -8,8 +8,8 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-library pages;
+const defaultDelay = 50;
 
-export 'algorithms/other/other.dart';
-export 'algorithms/sorting/sorting.dart';
-export 'home/home_page.dart';
+const maxSortingNumber = 99;
+
+const sortingArrayLength = 60;

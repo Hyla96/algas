@@ -54,6 +54,11 @@ class AppRouter {
       path: '/kadane',
       page: KadaneAlgorithm(),
     ),
+    Route(
+      name: 'Bubble Sort',
+      path: '/bubble-sort',
+      page: SortingView.bubbleSort(),
+    ),
   ];
 }
 

@@ -7,7 +7,7 @@ An open source app for algorithms visualization.
 ## Algorithms
 
 ### Sorting
-- [ ] Bubble Sort
+- [x] Bubble Sort
 - [ ] Insertion Sort
 - [ ] Selection Sort
 - [ ] Merge Sort
@@ -56,3 +56,7 @@ An open source app for algorithms visualization.
 - [ ] 0-1 Knapsack Problem
 - [x] Kadane (Maximum Subarray Problem)
 - ...
+
+## Documentation & Credits
+
+- https://github.com/kodecocodes/dsad-materials/tree/editions/1.0

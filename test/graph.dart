@@ -8,8 +8,23 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-library pages;
+import 'package:algas/app/ui/algorithms/utils/graph.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-export 'algorithms/other/other.dart';
-export 'algorithms/sorting/sorting.dart';
-export 'home/home_page.dart';
+main() {
+  test('Testing models', () {
+    final matrix = AdjacencyMatrix();
+
+    final v1 = matrix.createVertex(5);
+    final v2 = matrix.createVertex(2);
+    final v3 = matrix.createVertex(3);
+    final v4 = matrix.createVertex(1);
+
+    matrix.addEdge(v1, v2, weight: 5);
+    matrix.addEdge(v2, v4, weight: 2);
+    matrix.addEdge(v1, v3, weight: 1);
+    matrix.addEdge(v4, v3, weight: 8);
+
+    print(matrix.toString());
+  });
+}
